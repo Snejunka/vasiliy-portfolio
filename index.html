@@ -27,7 +27,16 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
+      opacity: 0;
       transition: opacity 1s ease;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .section.active {
+      opacity: 1;
+      position: relative;
     }
 
     .intro {
@@ -86,7 +95,7 @@
   </style>
 </head>
 <body>
-  <div class="section intro" id="intro">
+  <div class="section intro active" id="intro">
     <h1>Vasiliy Didukh</h1>
     <p>3D Architectural Visualizer</p>
     <div class="scroll-down">Scroll ↓</div>
@@ -106,25 +115,60 @@
     <img src="renders/3.jpg" alt="Render 3" />
   </div>
 
+  <div class="section slide">
+    <img src="renders/4.jpg" alt="Render 4" />
+  </div>
+
+  <div class="section slide">
+    <img src="renders/5.jpg" alt="Render 5" />
+  </div>
+
+  <div class="section slide">
+    <img src="renders/6.jpg" alt="Render 6" />
+  </div>
+
   <script>
     let current = 0;
     const sections = document.querySelectorAll('.section');
 
-    function scrollToSection(index) {
-      if (index < 0 || index >= sections.length) return;
-      sections[index].scrollIntoView({ behavior: 'smooth' });
-      current = index;
+    function updateVisibility() {
+      sections.forEach((section, index) => {
+        section.classList.remove('active');
+        if (index === current) {
+          section.classList.add('active');
+        }
+      });
     }
 
+    function scrollToSection(index) {
+      if (index < 0 || index >= sections.length) return;
+      current = index;
+      updateVisibility();
+    }
+
+    // Wheel navigation
+    let scrollTimeout;
     document.addEventListener('wheel', (e) => {
-      if (e.deltaY > 0) scrollToSection(current + 1);
-      else scrollToSection(current - 1);
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        if (e.deltaY > 0) scrollToSection(current + 1);
+        else scrollToSection(current - 1);
+      }, 100);
     });
 
+    // Arrow keys
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowDown') scrollToSection(current + 1);
       if (e.key === 'ArrowUp') scrollToSection(current - 1);
     });
+
+    // Autoscroll every 6 seconds
+    setInterval(() => {
+      scrollToSection((current + 1) % sections.length);
+    }, 6000);
+
+    // Initial state
+    updateVisibility();
   </script>
 </body>
 </html>
