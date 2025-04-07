@@ -5,161 +5,125 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vasiliy Didukh | 3D Portfolio</title>
   <style>
-    :root {
-      --bg-dark: repeating-linear-gradient(135deg, #1c1c1c, #2e2e2e 50px);
-      --bg-light: #f2f2f2;
-      --text-light: #eee;
-      --text-dark: #111;
-      --accent: #444;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    body {
-      margin: 0;
+    html, body {
+      height: 100%;
+      scroll-behavior: smooth;
+      overflow: hidden;
       font-family: 'Segoe UI', sans-serif;
-      background: var(--bg-dark);
-      color: var(--text-light);
-      padding: 20px;
-      transition: background 0.5s, color 0.5s;
+      background: #f7f7f7;
+      color: #111;
     }
 
-    body.light {
-      background: var(--bg-light);
-      color: var(--text-dark);
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    header h1 {
-      font-size: 2.5em;
-      margin: 0;
-    }
-
-    header p {
-      font-size: 1.2em;
-      color: inherit;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    .gallery img {
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      transition: transform 0.3s ease, box-shadow 0.3s, filter 0.3s;
-      filter: grayscale(100%);
-    }
-
-    .gallery img:hover {
-      transform: scale(1.03);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-      filter: grayscale(0%);
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 50px;
-      font-size: 0.9em;
-    }
-
-    .download {
-      display: inline-block;
-      margin-top: 10px;
-      background: var(--accent);
-      padding: 10px 20px;
-      border-radius: 8px;
-      text-decoration: none;
-      color: #fff;
-      transition: background 0.3s;
-    }
-
-    .download:hover {
-      background: #666;
-    }
-
-    #themeToggle {
-      position: fixed;
-      top: 15px;
-      right: 20px;
-      background: transparent;
-      border: 2px solid #fff;
-      color: #fff;
-      border-radius: 6px;
-      padding: 6px 12px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    body.light #themeToggle {
-      border-color: #333;
-      color: #333;
-    }
-
-    #loader {
-      position: fixed;
-      top: 0;
-      left: 0;
+    .section {
       width: 100vw;
       height: 100vh;
-      background: #111;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
+      flex-direction: column;
+      transition: opacity 1s ease;
     }
 
-    .spinner {
-      border: 6px solid #ccc;
-      border-top: 6px solid #fff;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
+    .intro {
+      background: #f7f7f7;
     }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    .intro h1 {
+      font-size: 4em;
+      letter-spacing: 0.05em;
+    }
+
+    .intro p {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #666;
+    }
+
+    .scroll-down {
+      position: absolute;
+      bottom: 40px;
+      font-size: 0.9em;
+      color: #888;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
+
+    .slide {
+      position: relative;
+      background: #fefefe;
+    }
+
+    .slide img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      filter: grayscale(100%);
+      transition: filter 1s;
+    }
+
+    .slide img:hover {
+      filter: grayscale(0%);
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.85em;
+      color: #999;
     }
   </style>
 </head>
 <body>
-  <div id="loader">
-    <div class="spinner"></div>
-  </div>
-
-  <button id="themeToggle">Toggle Theme</button>
-
-  <header>
+  <div class="section intro" id="intro">
     <h1>Vasiliy Didukh</h1>
     <p>3D Architectural Visualizer</p>
-  </header>
+    <div class="scroll-down">Scroll ↓</div>
+  </div>
 
-  <section class="gallery">
-    <img src="renders/1.jpg" alt="Render 1">
-    <img src="renders/2.jpg" alt="Render 2">
-    <img src="renders/3.jpg" alt="Render 3">
-  </section>
+  <div class="section slide">
+    <img src="renders/1.jpg" alt="Render 1" />
+    <div class="footer">diduh92@gmail.com | +380 99 677 65 41</div>
+  </div>
 
-  <footer>
-    <p>Contact: diduh92@gmail.com | +380 99 677 65 41</p>
-    <a class="download" href="Vasiliy_Didukh_Portfolio_Optimized.pdf" download>Download PDF Portfolio</a>
-  </footer>
+  <div class="section slide">
+    <img src="renders/2.jpg" alt="Render 2" />
+    <div class="footer">Download PDF: <a href="Vasiliy_Didukh_Portfolio_Optimized.pdf" download>Portfolio</a></div>
+  </div>
+
+  <div class="section slide">
+    <img src="renders/3.jpg" alt="Render 3" />
+  </div>
 
   <script>
-    window.addEventListener("load", () => {
-      document.getElementById("loader").style.display = "none";
+    let current = 0;
+    const sections = document.querySelectorAll('.section');
+
+    function scrollToSection(index) {
+      if (index < 0 || index >= sections.length) return;
+      sections[index].scrollIntoView({ behavior: 'smooth' });
+      current = index;
+    }
+
+    document.addEventListener('wheel', (e) => {
+      if (e.deltaY > 0) scrollToSection(current + 1);
+      else scrollToSection(current - 1);
     });
 
-    const toggleBtn = document.getElementById("themeToggle");
-    toggleBtn.addEventListener("click", () => {
-      document.body.classList.toggle("light");
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') scrollToSection(current + 1);
+      if (e.key === 'ArrowUp') scrollToSection(current - 1);
     });
   </script>
 </body>
