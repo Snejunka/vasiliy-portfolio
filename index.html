@@ -5,12 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vasiliy Didukh | 3D Portfolio</title>
   <style>
+    :root {
+      --bg-dark: repeating-linear-gradient(135deg, #1c1c1c, #2e2e2e 50px);
+      --bg-light: #f2f2f2;
+      --text-light: #eee;
+      --text-dark: #111;
+      --accent: #444;
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #1c1c1c, #2e2e2e);
-      color: #eee;
+      background: var(--bg-dark);
+      color: var(--text-light);
       padding: 20px;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    body.light {
+      background: var(--bg-light);
+      color: var(--text-dark);
     }
 
     header {
@@ -21,12 +35,11 @@
     header h1 {
       font-size: 2.5em;
       margin: 0;
-      color: #fff;
     }
 
     header p {
       font-size: 1.2em;
-      color: #aaa;
+      color: inherit;
     }
 
     .gallery {
@@ -39,24 +52,26 @@
       width: 100%;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      transition: transform 0.3s;
+      transition: transform 0.3s ease, box-shadow 0.3s, filter 0.3s;
+      filter: grayscale(100%);
     }
 
     .gallery img:hover {
       transform: scale(1.03);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+      filter: grayscale(0%);
     }
 
     footer {
       text-align: center;
       margin-top: 50px;
       font-size: 0.9em;
-      color: #bbb;
     }
 
     .download {
       display: inline-block;
       margin-top: 10px;
-      background: #444;
+      background: var(--accent);
       padding: 10px 20px;
       border-radius: 8px;
       text-decoration: none;
@@ -67,40 +82,85 @@
     .download:hover {
       background: #666;
     }
+
+    #themeToggle {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      background: transparent;
+      border: 2px solid #fff;
+      color: #fff;
+      border-radius: 6px;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    body.light #themeToggle {
+      border-color: #333;
+      color: #333;
+    }
+
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .spinner {
+      border: 6px solid #ccc;
+      border-top: 6px solid #fff;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <button id="themeToggle">Toggle Theme</button>
+
   <header>
     <h1>Vasiliy Didukh</h1>
     <p>3D Architectural Visualizer</p>
   </header>
 
   <section class="gallery">
-    <img src="renders/1.jpg" alt="Render">
-    <img src="renders/2.jpg" alt="Render">
-    <img src="renders/3.jpg" alt="Render">
-    <img src="renders/4.jpg" alt="Render">
-    <img src="renders/5.jpg" alt="Render">
-    <img src="renders/6.jpg" alt="Render">
-    <img src="renders/7.jpg" alt="Render">
-    <img src="renders/8.jpg" alt="Render">
-    <img src="renders/9.jpg" alt="Render">
-    <img src="renders/10.jpg" alt="Render">
-    <img src="renders/11.jpg" alt="Render">
-    <img src="renders/12.jpg" alt="Render">
-    <img src="renders/13.jpg" alt="Render">
-    <img src="renders/14.jpg" alt="Render">
-    <img src="renders/15.jpg" alt="Render">
-    <img src="renders/16.jpg" alt="Render">
-    <img src="renders/17.jpg" alt="Render">
-    <img src="renders/18.jpg" alt="Render">
-    <img src="renders/19.jpg" alt="Render">
-    <img src="renders/20.jpg" alt="Render">
+    <img src="renders/1.jpg" alt="Render 1">
+    <img src="renders/2.jpg" alt="Render 2">
+    <img src="renders/3.jpg" alt="Render 3">
   </section>
 
   <footer>
     <p>Contact: diduh92@gmail.com | +380 99 677 65 41</p>
     <a class="download" href="Vasiliy_Didukh_Portfolio_Optimized.pdf" download>Download PDF Portfolio</a>
   </footer>
+
+  <script>
+    window.addEventListener("load", () => {
+      document.getElementById("loader").style.display = "none";
+    });
+
+    const toggleBtn = document.getElementById("themeToggle");
+    toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+    });
+  </script>
 </body>
 </html>
